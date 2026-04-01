@@ -14,9 +14,9 @@ def call (Map configMap) {
             timeout(time: 1, unit:'HOURS')
             disableConcurrentBuilds()
         }
-        // parameters{
-        //     booleanParam(name: 'Deploy', defaultValue: false, description: 'Select deploy if the code pass QA')
-        // }
+        parameters{
+            booleanParam(name: 'Deploy', defaultValue: false, description: 'Select deploy if the code pass QA')
+        }
         stages{
             stage('Get Version'){
                 steps{
@@ -83,7 +83,8 @@ def call (Map configMap) {
                     script{
                         def params = [
                         string(name: 'VERSION', value: "$packageVersion"),
-                        string(name: 'environment', value: "dev")
+                        string(name: 'environment', value: "dev"),
+                        booleanParam(name: 'Create', value: "${params.Deploy}")
                         ]
                 
                         build job: "../${configMap.component}-deploy", wait: true, parameters: params     
