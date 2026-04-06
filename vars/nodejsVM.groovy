@@ -15,8 +15,9 @@ def call (Map configMap) {
             disableConcurrentBuilds()
         }
         parameters{
-            booleanParam(name: 'Deploy', defaultValue: false, description: 'Select deploy if the code pass QA')
             string(name: 'environment',  defaultValue: 'dev', description: 'Enter the target environment to be deployed')
+            booleanParam(name: 'Deploy', defaultValue: false, description: 'Select deploy if the code pass QA')
+            
         }
         stages{
             stage('Get Version'){
@@ -88,7 +89,7 @@ def call (Map configMap) {
                         booleanParam(name: 'Create', value: "${params.Deploy}")
                         ]
                 
-                        build job: "../${configMap.component}-deploy", wait: true, parameters: params     
+                        build job: "${configMap.component}-deploy", wait: true, parameters: params     
             }
             }
             
