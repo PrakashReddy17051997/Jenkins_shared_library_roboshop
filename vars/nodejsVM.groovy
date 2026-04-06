@@ -90,7 +90,7 @@ def call (Map configMap) {
                         booleanParam(name: 'Create', value: "${params.Deploy}")
                         ]
                 
-                        build job: "${configMap.component}-deploy", wait: true, parameters: params     
+                        build job: "../${configMap.component}-deploy", wait: true, parameters: params     
             }
             }
             
