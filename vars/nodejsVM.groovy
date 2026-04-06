@@ -16,6 +16,7 @@ def call (Map configMap) {
         }
         parameters{
             booleanParam(name: 'Deploy', defaultValue: false, description: 'Select deploy if the code pass QA')
+            string(name: 'environment',  defaultValue: 'dev', description: 'Enter the target environment to be deployed')
         }
         stages{
             stage('Get Version'){
@@ -74,16 +75,16 @@ def call (Map configMap) {
                     }
                 }
                 stage('Deploy') {
-                // when {
-                //     expression{
-                //         params.Deploy == 'true'
-                //         }
-                // }
+                when {
+                    expression{
+                        params.Deploy == 'true'
+                        }
+                }
                 steps{
                     script{
                         def params = [
                         string(name: 'VERSION', value: "$packageVersion"),
-                        string(name: 'environment', value: "dev"),
+                        string(name: 'environment', value: "${params.environment}"),
                         booleanParam(name: 'Create', value: "${params.Deploy}")
                         ]
                 
