@@ -15,8 +15,9 @@ def call (Map configMap) {
             disableConcurrentBuilds()
         }
         parameters{
-            string(name: 'environment',  defaultValue: 'dev', description: 'Enter the target environment to be deployed')
             booleanParam(name: 'Deploy', defaultValue: false, description: 'Select deploy if the code pass QA')
+
+            string(name: 'environment',  defaultValue: 'dev', description: 'Enter the target environment to be deployed')
             
         }
         stages{
